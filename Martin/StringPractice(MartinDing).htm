@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLPS Code performance review (Martin)</title>
+</head>
+<body>
+    <h1>String-Practice</h1>
+    <em>- author: Martin C Ding</em>
+
+
+<h4>
+    要求：<br/>有一个不定长度的String，其中前面是字母，后边是数字,例如："abcd123.456", 要求写一个方法得到其中的数字以String的形式返回,数字保留小数点后两位， 不四舍五入，截去多余小数,例如："abcd123.456"，得到"123.45" 如果数字没有小数点,要得到两位为0的小数，例如："abcd123"，得到"123.00".
+</h4>
+<div style="padding-top: 30px;">
+    <p>#1: Original String: "abcd123.456"</p>
+    <p>Formatted output: <span id="formattedNumber1"></span></p>
+    <hr/>
+</div>
+<div>
+    <p>#2: Original String: "abcd123"</p>
+    <p>Formatted output: <span id="formattedNumber2"></span></p>
+    <hr/>
+</div>
+
+<div>
+    <p>#3: Original String: "abcd without Number"</p>
+    <p>Formatted output: <span id="formattedNumber3"></span></p>
+    <hr/>
+</div>
+
+    <div>
+        <p>#4: Original String: "12abcd3" (不符合前面是字母后面是数字的格式)</p>
+        <p>Formatted output: <span id="formattedNumber4"></span></p>
+        <hr />
+    </div>
+
+
+
+<script>
+        function strConvertToFormattedNumber(str) {
+            var match = str.match(/\d+(\.\d+)?/);
+            if (!/^[A-Za-z]/.test(str)) {
+                return ''; //check if string started with string, in fact it could combined with above reg-express is quirement confirmed that the stream must started with a-z/A-Z
+            }
+            if (!match) {
+                return ''; //check if match the Regular expression
+            }
+            var num = parseFloat(match[0]);
+            return num.toFixed(2);
+        }
+        // test
+        console.log(strConvertToFormattedNumber("abcd123.456")); // output: "123.45"
+        console.log(strConvertToFormattedNumber("abcd123")); // output: "123.00"
+        console.log(strConvertToFormattedNumber("abcd without Number")); // output: ""
+        console.log(strConvertToFormattedNumber("12abcd3")); // output: "
+        // call the function for UI display
+        document.getElementById('formattedNumber1').textContent = strConvertToFormattedNumber("abcd123.456");
+        document.getElementById('formattedNumber2').textContent = strConvertToFormattedNumber("abcd123");
+        document.getElementById('formattedNumber3').textContent = strConvertToFormattedNumber("abcd without Number");
+        document.getElementById('formattedNumber4').textContent = strConvertToFormattedNumber("12abcd3");
+    </script>
+
+</body>
+</html>
